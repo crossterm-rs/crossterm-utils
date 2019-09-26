@@ -13,6 +13,14 @@ An utilities crate used by the following [crossterm](https://crates.io/crates/cr
 This crate is not meant for standalone use and is really a library with some common used code for
 crossterm and the above named modules.
 
+## Future
+
+> The `crossterm_utils` crate code will be moved to the `crossterm` crate.
+> Date is not set yet, but it doesn't make a lot of sense to start a new project with it.
+
+Issues in this repository are disabled for the same reason. Please, report all issues in the
+[crossterm-rs/crossterm](https://github.com/crossterm-rs/crossterm/issues) repository.
+
 ## Authors
 
 * **Timon Post** - *Project Owner & creator*
