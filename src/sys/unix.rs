@@ -2,7 +2,8 @@
 
 use std::{io, mem};
 
-pub use libc::{c_int, termios as Termios};
+pub use libc::termios as Termios;
+use libc::{cfmakeraw, tcgetattr, tcsetattr, STDIN_FILENO, TCSANOW};
 
 use crate::{ErrorKind, Result};
 
@@ -19,28 +20,19 @@ fn wrap_with_result(t: i32) -> Result<()> {
 
 /// Transform the given mode into an raw mode (non-canonical) mode.
 pub fn raw_terminal_attr(termios: &mut Termios) {
-    extern "C" {
-        pub fn cfmakeraw(termptr: *mut Termios);
-    }
     unsafe { cfmakeraw(termios) }
 }
 
 pub fn get_terminal_attr() -> Result<Termios> {
-    extern "C" {
-        pub fn tcgetattr(fd: c_int, termptr: *mut Termios) -> c_int;
-    }
     unsafe {
         let mut termios = mem::zeroed();
-        wrap_with_result(tcgetattr(0, &mut termios))?;
+        wrap_with_result(tcgetattr(STDIN_FILENO, &mut termios))?;
         Ok(termios)
     }
 }
 
 pub fn set_terminal_attr(termios: &Termios) -> Result<()> {
-    extern "C" {
-        pub fn tcsetattr(fd: c_int, opt: c_int, termptr: *const Termios) -> c_int;
-    }
-    wrap_with_result(unsafe { tcsetattr(0, 0, termios) })
+    wrap_with_result(unsafe { tcsetattr(STDIN_FILENO, TCSANOW, termios) })
 }
 
 pub fn enable_raw_mode() -> Result<()> {
