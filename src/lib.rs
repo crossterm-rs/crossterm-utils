@@ -1,4 +1,4 @@
-#![deny(unused_imports)]
+#![deny(unused_imports, unused_must_use)]
 
 pub use self::command::{Command, ExecutableCommand, Output, QueueableCommand};
 pub use self::error::{ErrorKind, Result};
