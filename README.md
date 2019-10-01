@@ -10,8 +10,11 @@ An utilities crate used by the following [crossterm](https://crates.io/crates/cr
 - [crossterm_cursor](https://crates.io/crates/crossterm_cursor)
 - [crossterm_terminal](https://crates.io/crates/crossterm_terminal)
 
-This crate is not meant for standalone use and is really a library with some common used code for
-crossterm and the above named modules.
+This crate is **not meant for standalone use** and is really just a library with some common used
+code for the [`crossterm`](https://crates.io/crates/crossterm) crate and the above named modules.
+
+This crate will be deprecated soon and longer maintained. It's highly recommended
+to not use it.
 
 ## Future
 
