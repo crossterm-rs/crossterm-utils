@@ -1,3 +1,7 @@
+# Version master
+
+- Add deprecation note
+
 # Version 0.3.1
 
 - Maintenance release only
