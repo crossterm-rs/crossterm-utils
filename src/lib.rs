@@ -6,7 +6,7 @@
 //! with some common used code for the [`crossterm`](https://crates.io/crates/crossterm)
 //! crate and the above named modules.
 //!
-//! This crate will be deprecated soon and longer maintained. It's highly recommended
+//! This crate will be deprecated soon and no longer maintained. It's highly recommended
 //! to not use it.
 
 pub use self::command::{Command, ExecutableCommand, Output, QueueableCommand};
