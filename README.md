@@ -27,7 +27,7 @@ Issues in this repository are disabled for the same reason. Please, report all i
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](./LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details
 
 [s1]: https://img.shields.io/crates/v/crossterm_utils.svg
 [l1]: https://crates.io/crates/crossterm_utils
