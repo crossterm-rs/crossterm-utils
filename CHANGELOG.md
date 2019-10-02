@@ -1,7 +1,8 @@
-# Version master
+# Version 0.4.0
 
 - Add deprecation note
 - Remove all references to the crossterm book
+- `sys::RAW_MODE_ENABLED` replaced with `sys::is_raw_mode_enabled()`
 
 # Version 0.3.1
 
