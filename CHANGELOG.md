@@ -1,6 +1,7 @@
 # Version master
 
 - Add deprecation note
+- Remove all references to the crossterm book
 
 # Version 0.3.1
 
