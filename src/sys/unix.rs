@@ -1,13 +1,23 @@
 //! This module contains all `unix` specific terminal related logic.
 
+use std::sync::Mutex;
 use std::{io, mem};
 
 pub use libc::{c_int, termios as Termios};
 
+use lazy_static::lazy_static;
+
 use crate::{ErrorKind, Result};
 
-static mut ORIGINAL_TERMINAL_MODE: Option<Termios> = None;
-pub static mut RAW_MODE_ENABLED: bool = false;
+lazy_static! {
+    // Some(Termios) -> we're in the raw mode and this is the mode previous mode
+    // None -> we're not in the raw mode
+    static ref TERMINAL_MODE_PRIOR_RAW_MODE: Mutex<Option<Termios>> = Mutex::new(None);
+}
+
+pub fn is_raw_mode_enabled() -> bool {
+    TERMINAL_MODE_PRIOR_RAW_MODE.lock().unwrap().is_some()
+}
 
 fn wrap_with_result(t: i32) -> Result<()> {
     if t == -1 {
@@ -44,27 +54,32 @@ pub fn set_terminal_attr(termios: &Termios) -> Result<()> {
 }
 
 pub fn enable_raw_mode() -> Result<()> {
-    let mut ios = get_terminal_attr()?;
-    let prev_ios = ios;
+    let mut original_mode = TERMINAL_MODE_PRIOR_RAW_MODE.lock().unwrap();
 
-    unsafe {
-        if ORIGINAL_TERMINAL_MODE.is_none() {
-            ORIGINAL_TERMINAL_MODE = Some(prev_ios.clone());
-        }
-
-        RAW_MODE_ENABLED = true;
+    if original_mode.is_some() {
+        return Ok(());
     }
+
+    let mut ios = get_terminal_attr()?;
+    let original_mode_ios = ios;
+
     raw_terminal_attr(&mut ios);
     set_terminal_attr(&ios)?;
+
+    // Keep it last - set the original mode only if we were able to switch to the raw mode
+    *original_mode = Some(original_mode_ios);
+
     Ok(())
 }
 
 pub fn disable_raw_mode() -> Result<()> {
-    unsafe {
-        if let Some(original_terminal_mode) = ORIGINAL_TERMINAL_MODE.as_ref() {
-            set_terminal_attr(original_terminal_mode)?;
-            RAW_MODE_ENABLED = false;
-        }
+    let mut original_mode = TERMINAL_MODE_PRIOR_RAW_MODE.lock().unwrap();
+
+    if let Some(original_mode_ios) = original_mode.as_ref() {
+        set_terminal_attr(original_mode_ios)?;
+        // Keep it last - remove the original mode only if we were able to switch back
+        *original_mode = None;
     }
+
     Ok(())
 }
