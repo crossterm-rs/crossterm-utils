@@ -10,7 +10,7 @@ use lazy_static::lazy_static;
 use crate::{ErrorKind, Result};
 
 lazy_static! {
-    // Some(Termios) -> we're in the raw mode and this is the mode previous mode
+    // Some(Termios) -> we're in the raw mode and this is the previous mode
     // None -> we're not in the raw mode
     static ref TERMINAL_MODE_PRIOR_RAW_MODE: Mutex<Option<Termios>> = Mutex::new(None);
 }
