@@ -4,6 +4,7 @@
 - Remove all references to the crossterm book
 - `sys::unix::RAW_MODE_ENABLED` replaced with `sys::unix::is_raw_mode_enabled()` (breaking)
 - New `lazy_static` dependency
+- `sys::unix`: Allow changing any fd to raw mode (breaking)
 
 # Version 0.3.1
 
