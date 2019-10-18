@@ -2,6 +2,11 @@
 
 # Crossterm Utilities
 
+**The `crossterm_utils` crate is deprecated and longer maintained. The GitHub repository will
+be archived soon. All the code is being moved to the `crossterm` crate. You can learn more in
+the [Merge sub-crates to the crossterm crate](https://github.com/crossterm-rs/crossterm/issues/265)
+issue.**
+
 An utilities crate used by the following [crossterm](https://crates.io/crates/crossterm) modules:
 
 - [crossterm_style](https://crates.io/crates/crossterm_style) 
@@ -15,14 +20,6 @@ code for the [`crossterm`](https://crates.io/crates/crossterm) crate and the abo
 
 This crate will be deprecated soon and no longer maintained. It's highly recommended
 to not use it.
-
-## Future
-
-> The `crossterm_utils` crate code will be moved to the `crossterm` crate.
-> Date is not set yet, but it doesn't make a lot of sense to start a new project with it.
-
-Issues in this repository are disabled for the same reason. Please, report all issues in the
-[crossterm-rs/crossterm](https://github.com/crossterm-rs/crossterm/issues) repository.
 
 ## Authors
 
